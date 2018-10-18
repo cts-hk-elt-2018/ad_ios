@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class SecondViewController: UIViewController {
 
@@ -15,6 +16,14 @@ class SecondViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        let keychain = KeychainSwift()
+        keychain.clear()
+        
+        let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = loginPage
+    }
+    
 }
 

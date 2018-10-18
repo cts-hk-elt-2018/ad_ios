@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let keychain = KeychainSwift()
+        let accessToken = keychain.get("accessToken")
+        
+        if accessToken != nil
+        {
+            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let homePage = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+            self.window?.rootViewController = homePage
+        }
+        
         return true
     }
 
