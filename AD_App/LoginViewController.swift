@@ -125,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         }
 
                     } else {
-                        let msg = parseJSON["tmsg"] as? String
+                        let msg = parseJSON["msg"] as? String
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         self.displayMessage(userMessage: msg!)
                         return
