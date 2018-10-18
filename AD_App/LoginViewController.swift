@@ -110,13 +110,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         print("Access Token: \(String(describing: accessToken!))")
 
                         let keychain = KeychainSwift()
-                        keychain.synchronizable = true
-                        keychain.set(accessToken!, forKey: "accessToken")
+                        keychain.set(accessToken!, forKey: "accessToken", withAccess: .accessibleAlways)
                         
                         if keychain.lastResultCode != noErr {
                             print("accessToken save result: \(keychain.lastResultCode)")
                         }
-                        
+
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         DispatchQueue.main.async
                         {
