@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Lucky Draw-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="AD_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -40,16 +40,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Lucky Draw" image="calculator" id="acW-dT-cKf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="835" y="-686"/>
         </scene>
         <!--Setting-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="AD_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="SettingViewController" customModule="AD_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,11 +90,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setting" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Setting" image="settings" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="739" y="788"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="itC-rj-iPm">
@@ -169,6 +169,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <segue destination="PWN-lp-CJQ" kind="relationship" relationship="viewControllers" id="r6q-vb-ow5"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
@@ -177,10 +178,89 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--CheckinViewController-->
+        <scene sceneID="JnK-6L-25e">
+            <objects>
+                <viewController storyboardIdentifier="CheckinViewController" id="PWN-lp-CJQ" userLabel="CheckinViewController" customClass="CheckinViewController" customModule="AD_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i6m-C4-SCH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Staff ID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="OC3-aP-kFC">
+                                <rect key="frame" x="83" y="40" width="208" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMZ-XE-ldS">
+                                <rect key="frame" x="311" y="40" width="30" height="30"/>
+                                <state key="normal" title="-&gt;"/>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="PWN-lp-CJQ" eventType="touchUpInside" id="2fS-gC-0gT"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYX-ig-6pP">
+                                <rect key="frame" x="207" y="635" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U4D-81-Ccd">
+                                <rect key="frame" x="182.66666666666666" y="646" width="51" height="31"/>
+                                <connections>
+                                    <action selector="checkedInSwtichChanged:" destination="PWN-lp-CJQ" eventType="valueChanged" id="rra-Rf-HBB"/>
+                                </connections>
+                            </switch>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmh-qU-Oqm">
+                                <rect key="frame" x="20" y="80" width="374" height="547"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2w-EL-XM5">
+                                <rect key="frame" x="207" y="638" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="s2w-EL-XM5" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="AJU-f7-vxL"/>
+                            <constraint firstItem="s2w-EL-XM5" firstAttribute="firstBaseline" secondItem="xYX-ig-6pP" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="Aga-uP-J32"/>
+                            <constraint firstItem="HMZ-XE-ldS" firstAttribute="leading" secondItem="OC3-aP-kFC" secondAttribute="trailing" constant="20" id="Lgz-bk-6j9"/>
+                            <constraint firstItem="Gmh-qU-Oqm" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="M4H-l7-JYW"/>
+                            <constraint firstItem="OC3-aP-kFC" firstAttribute="top" secondItem="3s8-jq-dnd" secondAttribute="top" constant="20" id="MVH-tE-jM6"/>
+                            <constraint firstItem="3s8-jq-dnd" firstAttribute="trailing" secondItem="HMZ-XE-ldS" secondAttribute="trailing" constant="73" id="N3u-S5-9la"/>
+                            <constraint firstItem="3s8-jq-dnd" firstAttribute="bottom" secondItem="U4D-81-Ccd" secondAttribute="bottom" constant="10" id="VOg-go-1nT"/>
+                            <constraint firstItem="xYX-ig-6pP" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="a4P-td-s1J"/>
+                            <constraint firstItem="HMZ-XE-ldS" firstAttribute="top" secondItem="3s8-jq-dnd" secondAttribute="top" constant="20" id="cQO-OB-oQ3"/>
+                            <constraint firstItem="Gmh-qU-Oqm" firstAttribute="top" secondItem="OC3-aP-kFC" secondAttribute="bottom" constant="10" id="hIg-tx-o0v"/>
+                            <constraint firstItem="xYX-ig-6pP" firstAttribute="top" secondItem="Gmh-qU-Oqm" secondAttribute="bottom" constant="8" id="iS0-mg-iFC"/>
+                            <constraint firstItem="OC3-aP-kFC" firstAttribute="leading" secondItem="3s8-jq-dnd" secondAttribute="leading" constant="83" id="mRS-UD-dUE"/>
+                            <constraint firstItem="U4D-81-Ccd" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="nAm-1M-um3"/>
+                            <constraint firstItem="Gmh-qU-Oqm" firstAttribute="leading" secondItem="3s8-jq-dnd" secondAttribute="leading" constant="20" id="psS-Ut-i5K"/>
+                            <constraint firstItem="3s8-jq-dnd" firstAttribute="trailing" secondItem="Gmh-qU-Oqm" secondAttribute="trailing" constant="20" id="s1U-TT-doV"/>
+                            <constraint firstItem="U4D-81-Ccd" firstAttribute="firstBaseline" secondItem="s2w-EL-XM5" secondAttribute="baseline" constant="12.333333333333334" symbolType="layoutAnchor" id="uEx-Cj-ctV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3s8-jq-dnd"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Check-in" image="face_ID" id="WQv-23-yJz"/>
+                    <connections>
+                        <outlet property="cameraView" destination="Gmh-qU-Oqm" id="CGi-dP-h7c"/>
+                        <outlet property="checkedInSwitch" destination="U4D-81-Ccd" id="12v-yP-bUd"/>
+                        <outlet property="staffIDLabel" destination="xYX-ig-6pP" id="YIX-pt-bTu"/>
+                        <outlet property="staffIDTextField" destination="OC3-aP-kFC" id="45b-Gm-jlM"/>
+                        <outlet property="staffNameLabel" destination="s2w-EL-XM5" id="b6Z-eP-YOJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z7C-IS-NW8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="823.1884057971015" y="-1.6304347826086958"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo2" width="512" height="512"/>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="calculator" width="30" height="30"/>
+        <image name="face_ID" width="30" height="30"/>
+        <image name="settings" width="30" height="30"/>
     </resources>
 </document>
