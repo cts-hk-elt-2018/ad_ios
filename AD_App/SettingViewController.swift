@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  SettingViewController.swift
 //  AD_App
 //
 //  Created by Chun-kit Ho on 17/10/2018.
