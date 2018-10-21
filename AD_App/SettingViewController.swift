@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class SecondViewController: UIViewController {
+class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
