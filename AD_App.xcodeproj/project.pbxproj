@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0ED60315442CF7905E1CB2BA /* Pods_AD_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D231F5ED9A4793E32AAC7B9 /* Pods_AD_App.framework */; };
+		58092D8E2178581300BF72C1 /* CheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58092D8D2178581300BF72C1 /* CheckinViewController.swift */; };
 		582C698921772DF0004BDD35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582C698821772DF0004BDD35 /* AppDelegate.swift */; };
 		582C698B21772DF0004BDD35 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582C698A21772DF0004BDD35 /* FirstViewController.swift */; };
-		582C698D21772DF0004BDD35 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582C698C21772DF0004BDD35 /* SecondViewController.swift */; };
+		582C698D21772DF0004BDD35 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582C698C21772DF0004BDD35 /* SettingViewController.swift */; };
 		582C699021772DF0004BDD35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 582C698E21772DF0004BDD35 /* Main.storyboard */; };
 		582C699221772DF4004BDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 582C699121772DF4004BDD35 /* Assets.xcassets */; };
 		582C699521772DF4004BDD35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 582C699321772DF4004BDD35 /* LaunchScreen.storyboard */; };
@@ -19,10 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58092D8D2178581300BF72C1 /* CheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewController.swift; sourceTree = "<group>"; };
 		582C698521772DF0004BDD35 /* AD_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AD_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		582C698821772DF0004BDD35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		582C698A21772DF0004BDD35 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		582C698C21772DF0004BDD35 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		582C698C21772DF0004BDD35 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		582C698F21772DF0004BDD35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		582C699121772DF4004BDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		582C699421772DF4004BDD35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,13 +79,14 @@
 			children = (
 				582C698821772DF0004BDD35 /* AppDelegate.swift */,
 				582C698A21772DF0004BDD35 /* FirstViewController.swift */,
-				582C698C21772DF0004BDD35 /* SecondViewController.swift */,
+				582C698C21772DF0004BDD35 /* SettingViewController.swift */,
 				582C698E21772DF0004BDD35 /* Main.storyboard */,
 				582C699121772DF4004BDD35 /* Assets.xcassets */,
 				582C699321772DF4004BDD35 /* LaunchScreen.storyboard */,
 				582C699621772DF4004BDD35 /* Info.plist */,
 				582C699C217743E9004BDD35 /* LoginViewController.swift */,
 				582C699E21776467004BDD35 /* TabBarViewController.swift */,
+				58092D8D2178581300BF72C1 /* CheckinViewController.swift */,
 			);
 			path = AD_App;
 			sourceTree = "<group>";
@@ -223,9 +226,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				582C699D217743E9004BDD35 /* LoginViewController.swift in Sources */,
-				582C698D21772DF0004BDD35 /* SecondViewController.swift in Sources */,
+				582C698D21772DF0004BDD35 /* SettingViewController.swift in Sources */,
 				582C698921772DF0004BDD35 /* AppDelegate.swift in Sources */,
 				582C699F21776467004BDD35 /* TabBarViewController.swift in Sources */,
+				58092D8E2178581300BF72C1 /* CheckinViewController.swift in Sources */,
 				582C698B21772DF0004BDD35 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
