@@ -187,14 +187,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Staff ID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="OC3-aP-kFC">
-                                <rect key="frame" x="83" y="40" width="208" height="30"/>
+                                <rect key="frame" x="83" y="40" width="222" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMZ-XE-ldS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMZ-XE-ldS">
                                 <rect key="frame" x="311" y="40" width="30" height="30"/>
-                                <state key="normal" title="-&gt;"/>
+                                <state key="normal" image="search"/>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="PWN-lp-CJQ" eventType="touchUpInside" id="2fS-gC-0gT"/>
                                 </connections>
@@ -226,7 +226,7 @@
                         <constraints>
                             <constraint firstItem="s2w-EL-XM5" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="AJU-f7-vxL"/>
                             <constraint firstItem="s2w-EL-XM5" firstAttribute="firstBaseline" secondItem="xYX-ig-6pP" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="Aga-uP-J32"/>
-                            <constraint firstItem="HMZ-XE-ldS" firstAttribute="leading" secondItem="OC3-aP-kFC" secondAttribute="trailing" constant="20" id="Lgz-bk-6j9"/>
+                            <constraint firstItem="HMZ-XE-ldS" firstAttribute="leading" secondItem="OC3-aP-kFC" secondAttribute="trailing" constant="6" id="Lgz-bk-6j9"/>
                             <constraint firstItem="Gmh-qU-Oqm" firstAttribute="centerX" secondItem="3s8-jq-dnd" secondAttribute="centerX" id="M4H-l7-JYW"/>
                             <constraint firstItem="OC3-aP-kFC" firstAttribute="top" secondItem="3s8-jq-dnd" secondAttribute="top" constant="20" id="MVH-tE-jM6"/>
                             <constraint firstItem="3s8-jq-dnd" firstAttribute="trailing" secondItem="HMZ-XE-ldS" secondAttribute="trailing" constant="73" id="N3u-S5-9la"/>
@@ -261,6 +261,7 @@
         <image name="Logo2" width="512" height="512"/>
         <image name="calculator" width="30" height="30"/>
         <image name="face_ID" width="30" height="30"/>
+        <image name="search" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
     </resources>
 </document>
