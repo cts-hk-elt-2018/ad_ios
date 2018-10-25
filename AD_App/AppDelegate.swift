@@ -10,6 +10,8 @@ import UIKit
 import EZSwiftExtensions
 import KeychainSwift
 
+var v_host = "http://172.20.10.3"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

@@ -30,80 +30,97 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
 
         // Do any additional setup after loading the view.
         
+        captureSession = AVCaptureSession()
         // Get the back-facing camera for capturing videos
-//        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-//
-//        guard let captureDevice = deviceDiscoverySession.devices.first else {
-//            print("Failed to get the camera device")
-//            return
-//        }
-//
-//        do {
-//            // Get an instance of the AVCaptureDeviceInput class using the previous device object.
-//            let input = try AVCaptureDeviceInput(device: captureDevice)
-//
-//            // Set the input device on the capture session.
-//            captureSession.addInput(input)
-//
-//            // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
-//            let captureMetadataOutput = AVCaptureMetadataOutput()
-//            captureSession.addOutput(captureMetadataOutput)
-//
-//            // Set delegate and use the default dispatch queue to execute the call back
-//            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-//            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
-//
-//
-//            // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
-//            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-//            videoPreviewLayer?.frame = cameraView.layer.bounds
-//            view.layer.addSublayer(videoPreviewLayer!)
-//
-//            // Start video capture.
-//            captureSession.startRunning()
-//
-//            // Initialize QR Code Frame to highlight the QR code
-//            qrCodeFrameView = UIView()
-//
-//            if let qrCodeFrameView = qrCodeFrameView {
-//                qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
-//                qrCodeFrameView.layer.borderWidth = 2
-//                cameraView.addSubview(qrCodeFrameView)
-//                cameraView.bringSubviewToFront(qrCodeFrameView)
-//
-//            }
-//        } catch {
-//            // If any error occurs, simply print it out and don't continue any more.
-//            print(error)
-//            return
-//        }
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
+
+        guard let captureDevice = deviceDiscoverySession.devices.first else {
+            print("Failed to get the camera device")
+            return
+        }
+
+        do {
+            // Get an instance of the AVCaptureDeviceInput class using the previous device object.
+            let input = try AVCaptureDeviceInput(device: captureDevice)
+
+            // Set the input device on the capture session.
+            captureSession.addInput(input)
+
+            // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
+            let captureMetadataOutput = AVCaptureMetadataOutput()
+            captureSession.addOutput(captureMetadataOutput)
+
+            // Set delegate and use the default dispatch queue to execute the call back
+            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            captureMetadataOutput.metadataObjectTypes = [.qr]
+
+
+            // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            videoPreviewLayer?.frame = cameraView.layer.bounds
+            cameraView.layer.addSublayer(videoPreviewLayer!)
+
+            // Start video capture.
+            captureSession.startRunning()
+
+            // Initialize QR Code Frame to highlight the QR code
+            qrCodeFrameView = UIView()
+
+            if let qrCodeFrameView = qrCodeFrameView {
+                qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
+                qrCodeFrameView.layer.borderWidth = 2
+                cameraView.addSubview(qrCodeFrameView)
+                cameraView.bringSubviewToFront(qrCodeFrameView)
+
+            }
+        } catch {
+            // If any error occurs, simply print it out and don't continue any more.
+            print(error)
+            return
+        }
     }
     
-//    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-//        // Check if the metadataObjects array is not nil and it contains at least one object.
-//        if metadataObjects.count == 0 {
-//            qrCodeFrameView?.frame = CGRect.zero
-//            print("No QR code is detected")
-////            messageLabel.text = "No QR code is detected"
-//            return
-//        }
-//        
-//        // Get the metadata object.
-//        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-//        
-//        if metadataObj.type == AVMetadataObject.ObjectType.qr {
-//            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-//            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-//            qrCodeFrameView?.frame = barCodeObject!.bounds
-//            
-//            if metadataObj.stringValue != nil {
-//                print(metadataObj.stringValue!)
-////                messageLabel.text = metadataObj.stringValue
-//                //TODO: DO STH
-//            }
-//        }
-//    }
+    var currentStaffID: String = ""
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        // Check if the metadataObjects array is not nil and it contains at least one object.
+        if metadataObjects.count == 0 {
+            qrCodeFrameView?.frame = CGRect.zero
+            print("No QR code is detected")
+//            messageLabel.text = "No QR code is detected"
+            return
+        }
+        
+        // Get the metadata object.
+        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+
+        if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+            qrCodeFrameView?.frame = barCodeObject!.bounds
+
+            if metadataObj.stringValue != nil {
+                if metadataObj.stringValue != currentStaffID {
+                    print(metadataObj.stringValue!)
+                    currentStaffID = metadataObj.stringValue!
+                    checkin(staffID: currentStaffID)
+                }
+                
+//                messageLabel.text = metadataObj.stringValue
+                //TODO: DO STH
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if (captureSession?.isRunning == false) {
+            captureSession.startRunning()
+        }
+    }
+
     
     
     func addDoneButtonOnKeyboard()
@@ -131,20 +148,12 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         nextButtonTapped(self.staffIDTextField)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        if (captureSession?.isRunning == false) {
-//            captureSession.startRunning()
-//        }
-//    }
-//
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-//        if (captureSession?.isRunning == true) {
-//            captureSession.stopRunning()
-//        }
+        if (captureSession?.isRunning == true) {
+            captureSession.stopRunning()
+        }
         self.staffIDLabel.text = ""
         self.staffNameLabel.text = ""
         self.checkedInSwitch.setOn(false, animated: false)
@@ -188,37 +197,26 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         }
     }
     
-    @IBAction func nextButtonTapped(_ sender: Any) {
-        print("nextButtonTapped")
-        let staffID = staffIDTextField.text
-        
-        if (staffID?.isEmpty)! {
-            self.staffIDLabel.text = ""
-            self.staffNameLabel.text = ""
-            self.checkedInSwitch.setOn(false, animated: false)
-            self.checkedInSwitch.isEnabled = false
-            self.checkedInSwitch.isHidden = true
-            self.staffIDTextField.text = ""
-            displayMessage(userMessage: "StaffID is missing.")
-            return
-        }
+    func checkOut(staffID: String) {
+        var httpMethod: String
+        httpMethod = "DELETE"
         
         let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = false
         myActivityIndicator.startAnimating()
         view.addSubview(myActivityIndicator)
-     
+        
         
         let keychain = KeychainSwift()
         let accessToken = keychain.get("accessToken")
         
         
-        let checkinUrl = URL(string: "http://localhost/api/checkin/1/\(staffID!)")
+        let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
         
         var request = URLRequest(url: checkinUrl!)
         
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod
         request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -301,15 +299,138 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         }
         task.resume()
     }
+    
+    func checkin(staffID: String) {
+        var httpMethod: String
+        httpMethod = "POST"
+        
+        let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+        
+        
+        let keychain = KeychainSwift()
+        let accessToken = keychain.get("accessToken")
+        
+        
+        let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
+        
+        var request = URLRequest(url: checkinUrl!)
+        
+        request.httpMethod = httpMethod
+        request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil
+            {
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                self.staffIDLabel.text = ""
+                self.staffNameLabel.text = ""
+                self.checkedInSwitch.setOn(false, animated: false)
+                self.checkedInSwitch.isEnabled = false
+                self.checkedInSwitch.isHidden = true
+                self.staffIDTextField.text = ""
+                print("error=\(String(describing: error))")
+                return
+            }
+            do
+            {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json
+                {
+                    let status = parseJSON["success"] as? Bool
+                    
+                    if status!
+                    {
+                        DispatchQueue.main.async
+                            {
+                                let r_staffID: String? = parseJSON["username"] as? String
+                                let r_staffName: String? = parseJSON["name"] as? String
+                                
+                                if r_staffID?.isEmpty != true {
+                                    self.staffIDLabel.text = r_staffID!
+                                }
+                                if r_staffName?.isEmpty != true{
+                                    self.staffNameLabel.text = r_staffName!
+                                }
+                                self.checkedInSwitch.setOn(true, animated: true)
+                                self.checkedInSwitch.isEnabled = true
+                                self.checkedInSwitch.isHidden = false
+                                
+                                self.staffIDTextField.text = ""
+                                
+                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        }
+                    } else {
+                        let msg = parseJSON["msg"] as? String
+                        DispatchQueue.main.async
+                            {
+                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                                self.staffIDLabel.text = ""
+                                self.staffNameLabel.text = ""
+                                self.checkedInSwitch.setOn(false, animated: false)
+                                self.checkedInSwitch.isEnabled = false
+                                self.checkedInSwitch.isHidden = true
+                                self.staffIDTextField.text = ""
+                                self.displayMessage(userMessage: msg!)
+                        }
+                        return
+                    }
+                } else {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                    self.staffIDLabel.text = ""
+                    self.staffNameLabel.text = ""
+                    self.checkedInSwitch.setOn(false, animated: false)
+                    self.checkedInSwitch.isEnabled = false
+                    self.checkedInSwitch.isHidden = true
+                    self.staffIDTextField.text = ""
+                }
+            } catch {
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                self.staffIDLabel.text = ""
+                self.staffNameLabel.text = ""
+                self.checkedInSwitch.setOn(false, animated: false)
+                self.checkedInSwitch.isEnabled = false
+                self.checkedInSwitch.isHidden = true
+                self.staffIDTextField.text = ""
+            }
+        }
+        task.resume()
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        print("nextButtonTapped")
+        currentStaffID = staffIDTextField.text!
+        
+        if (currentStaffID.isEmpty) {
+            self.staffIDLabel.text = ""
+            self.staffNameLabel.text = ""
+            self.checkedInSwitch.setOn(false, animated: false)
+            self.checkedInSwitch.isEnabled = false
+            self.checkedInSwitch.isHidden = true
+            self.staffIDTextField.text = ""
+            displayMessage(userMessage: "StaffID is missing.")
+            return
+        }
+        
+        checkin(staffID: currentStaffID)
+        
+       
+    }
     @IBAction func checkedInSwtichChanged(_ sender: Any) {
-        let staffID = staffIDLabel.text
+        let staffID = currentStaffID
         var httpMethod: String
         if checkedInSwitch.isOn {
             httpMethod = "POST"
         } else {
             httpMethod = "DELETE"
         }
-        if (staffID?.isEmpty)! {
+        if (staffID.isEmpty) {
             displayMessage(userMessage: "StaffID is missing.")
             self.staffIDLabel.text = ""
             self.staffNameLabel.text = ""
@@ -331,7 +452,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         let accessToken = keychain.get("accessToken")
         
         
-        let checkinUrl = URL(string: "http://localhost/api/checkin/1/\(staffID!)")
+        let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
         
         var request = URLRequest(url: checkinUrl!)
         
@@ -399,6 +520,8 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             }
         }
         task.resume()
+
+        
         
     }
     /*
