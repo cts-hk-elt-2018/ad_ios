@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZSwiftExtensions
 import KeychainSwift
 
 class TabBarViewController: UITabBarController {

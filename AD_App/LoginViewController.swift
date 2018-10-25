@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZSwiftExtensions
 import KeychainSwift
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -17,6 +18,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         staffIDTextField.delegate = self
         passwordTextField.delegate = self
+        self.hideKeyboardWhenTappedAround()
         
         // Do any additional setup after loading the view.
     }
@@ -69,7 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         myActivityIndicator.startAnimating()
         view.addSubview(myActivityIndicator)
         
-        let loginUrl = URL(string: "http://localhost/api/auth/signin")
+        let loginUrl = URL(string: "\(v_host)/api/auth/signin")
         var request = URLRequest(url: loginUrl!)
         
         request.httpMethod = "POST"

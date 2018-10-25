@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZSwiftExtensions
 import AVFoundation
 import KeychainSwift
 
@@ -23,6 +24,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         staffIDTextField.delegate = self
 
         // Do any additional setup after loading the view.

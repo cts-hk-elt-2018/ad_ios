@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZSwiftExtensions
 
 class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var numberPicker: UIPickerView!
@@ -14,6 +15,8 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+
         // Do any additional setup after loading the view, typically from a nib.
         
         self.numberPicker.delegate = self

@@ -6,6 +6,7 @@ target 'AD_App' do
   use_frameworks!
 
   # Pods for AD_App
+  pod 'EZSwiftExtensions', :git => 'https://github.com/shanyanhai/EZSwiftExtensions.git', :branch => 'Swift4.2'
   pod 'KeychainSwift', '~> 12.0'
 
 end
