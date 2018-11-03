@@ -30,6 +30,27 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
 
         // Do any additional setup after loading the view.
         
+        if AVCaptureDevice.authorizationStatus(for: .video) !=  .authorized {
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                if !granted {
+                    print("Failed to grant the camera device")
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
+                        
+                        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                            print("OK button pressed")
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true, completion: nil)
+                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                            }
+                        }
+                        alertController.addAction(OKAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            })
+        }
+        
         captureSession = AVCaptureSession()
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
