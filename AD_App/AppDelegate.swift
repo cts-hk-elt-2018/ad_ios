@@ -9,8 +9,10 @@
 import UIKit
 import EZSwiftExtensions
 import KeychainSwift
+import Reachability
 
-var v_host = "http://172.20.10.3"
+var v_host = "http://ad-backend.fqs3taypzi.ap-southeast-1.elasticbeanstalk.com/"
+var reachability = Reachability()!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -1,14 +1,17 @@
 PODS:
   - EZSwiftExtensions (1.12)
   - KeychainSwift (12.0.0)
+  - ReachabilitySwift (4.3.0)
 
 DEPENDENCIES:
   - EZSwiftExtensions (from `https://github.com/shanyanhai/EZSwiftExtensions.git`, branch `Swift4.2`)
   - KeychainSwift (~> 12.0)
+  - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - KeychainSwift
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   EZSwiftExtensions:
@@ -23,7 +26,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   EZSwiftExtensions: ed067bc8f5a25be070a6d763066e8177e1ba0b7b
   KeychainSwift: d5e776578587ee5958ce36601df22f168f65138a
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
 
-PODFILE CHECKSUM: 16e3be810ed1d4e64b5605271ffed0aff897b3bc
+PODFILE CHECKSUM: b15dba1cc2bb391a0cb87a2e90874b3921e5ace9
 
 COCOAPODS: 1.5.3
