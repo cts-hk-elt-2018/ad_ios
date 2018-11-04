@@ -222,110 +222,6 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         var httpMethod: String
         httpMethod = "DELETE"
         
-        let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-        
-        
-        let keychain = KeychainSwift()
-        let accessToken = keychain.get("accessToken")
-        
-        
-        let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
-        
-        var request = URLRequest(url: checkinUrl!)
-        
-        request.httpMethod = httpMethod
-        request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "content-type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil
-            {
-                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                self.staffIDLabel.text = ""
-                self.staffNameLabel.text = ""
-                self.checkedInSwitch.setOn(false, animated: false)
-                self.checkedInSwitch.isEnabled = false
-                self.checkedInSwitch.isHidden = true
-                self.staffIDTextField.text = ""
-                print("error=\(String(describing: error))")
-                return
-            }
-            do
-            {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json
-                {
-                    let status = parseJSON["success"] as? Bool
-                    
-                    if status!
-                    {
-                        DispatchQueue.main.async
-                            {
-                                let r_staffID: String? = parseJSON["username"] as? String
-                                let r_staffName: String? = parseJSON["name"] as? String
-                                
-                                if r_staffID?.isEmpty != true {
-                                    self.staffIDLabel.text = r_staffID!
-                                }
-                                if r_staffName?.isEmpty != true{
-                                    self.staffNameLabel.text = r_staffName!
-                                }
-                                self.checkedInSwitch.setOn(true, animated: true)
-                                self.checkedInSwitch.isEnabled = true
-                                self.checkedInSwitch.isHidden = false
-                                
-                                self.staffIDTextField.text = ""
-                                
-                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                        }
-                    } else {
-                        let msg = parseJSON["msg"] as? String
-                        DispatchQueue.main.async
-                            {
-                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                                self.staffIDLabel.text = ""
-                                self.staffNameLabel.text = ""
-                                self.checkedInSwitch.setOn(false, animated: false)
-                                self.checkedInSwitch.isEnabled = false
-                                self.checkedInSwitch.isHidden = true
-                                self.staffIDTextField.text = ""
-                                self.displayMessage(userMessage: msg!)
-                        }
-                        return
-                    }
-                } else {
-                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
-                    self.staffIDLabel.text = ""
-                    self.staffNameLabel.text = ""
-                    self.checkedInSwitch.setOn(false, animated: false)
-                    self.checkedInSwitch.isEnabled = false
-                    self.checkedInSwitch.isHidden = true
-                    self.staffIDTextField.text = ""
-                }
-            } catch {
-                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                self.staffIDLabel.text = ""
-                self.staffNameLabel.text = ""
-                self.checkedInSwitch.setOn(false, animated: false)
-                self.checkedInSwitch.isEnabled = false
-                self.checkedInSwitch.isHidden = true
-                self.staffIDTextField.text = ""
-            }
-        }
-        task.resume()
-    }
-    
-    func checkin(staffID: String) {
-        var httpMethod: String
-        httpMethod = "POST"
-        
-        
         if reachability.connection != .none {
             let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
             myActivityIndicator.center = view.center
@@ -361,7 +257,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     return
                 }
                 guard let data = data else {
-                    // no data
+                    self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
                     return
                 }
                 do
@@ -429,7 +325,119 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             }
             task.resume()
         } else {
-            displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+        }
+    }
+    
+    func checkin(staffID: String) {
+        var httpMethod: String
+        httpMethod = "POST"
+        
+        
+        if reachability.connection != .none {
+            let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+            myActivityIndicator.center = view.center
+            myActivityIndicator.hidesWhenStopped = false
+            myActivityIndicator.startAnimating()
+            view.addSubview(myActivityIndicator)
+            
+            
+            let keychain = KeychainSwift()
+            let accessToken = keychain.get("accessToken")
+            
+            
+            let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
+            
+            var request = URLRequest(url: checkinUrl!)
+            
+            request.httpMethod = httpMethod
+            request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+            request.addValue("application/json", forHTTPHeaderField: "content-type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if error != nil
+                {
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                    self.staffIDLabel.text = ""
+                    self.staffNameLabel.text = ""
+                    self.checkedInSwitch.setOn(false, animated: false)
+                    self.checkedInSwitch.isEnabled = false
+                    self.checkedInSwitch.isHidden = true
+                    self.staffIDTextField.text = ""
+                    print("error=\(String(describing: error))")
+                    return
+                }
+                guard let data = data else {
+                    self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+                    return
+                }
+                do
+                {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = json
+                    {
+                        let status = parseJSON["success"] as? Bool
+                        
+                        if status!
+                        {
+                            DispatchQueue.main.async
+                                {
+                                    let r_staffID: String? = parseJSON["username"] as? String
+                                    let r_staffName: String? = parseJSON["name"] as? String
+                                    
+                                    if r_staffID?.isEmpty != true {
+                                        self.staffIDLabel.text = r_staffID!
+                                    }
+                                    if r_staffName?.isEmpty != true{
+                                        self.staffNameLabel.text = r_staffName!
+                                    }
+                                    self.checkedInSwitch.setOn(true, animated: true)
+                                    self.checkedInSwitch.isEnabled = true
+                                    self.checkedInSwitch.isHidden = false
+                                    
+                                    self.staffIDTextField.text = ""
+                                    
+                                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            }
+                        } else {
+                            let msg = parseJSON["msg"] as? String
+                            DispatchQueue.main.async
+                                {
+                                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                                    self.staffIDLabel.text = ""
+                                    self.staffNameLabel.text = ""
+                                    self.checkedInSwitch.setOn(false, animated: false)
+                                    self.checkedInSwitch.isEnabled = false
+                                    self.checkedInSwitch.isHidden = true
+                                    self.staffIDTextField.text = ""
+                                    self.displayMessage(userMessage: msg!)
+                            }
+                            return
+                        }
+                    } else {
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                        self.staffIDLabel.text = ""
+                        self.staffNameLabel.text = ""
+                        self.checkedInSwitch.setOn(false, animated: false)
+                        self.checkedInSwitch.isEnabled = false
+                        self.checkedInSwitch.isHidden = true
+                        self.staffIDTextField.text = ""
+                    }
+                } catch {
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                    self.staffIDLabel.text = ""
+                    self.staffNameLabel.text = ""
+                    self.checkedInSwitch.setOn(false, animated: false)
+                    self.checkedInSwitch.isEnabled = false
+                    self.checkedInSwitch.isHidden = true
+                    self.staffIDTextField.text = ""
+                }
+            }
+            task.resume()
+        } else {
+            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
         }
     }
     
@@ -471,54 +479,72 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             return
         }
         
-        let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-        
-        
-        let keychain = KeychainSwift()
-        let accessToken = keychain.get("accessToken")
-        
-        
-        let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
-        
-        var request = URLRequest(url: checkinUrl!)
-        
-        request.httpMethod = httpMethod
-        request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "content-type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil
-            {
-                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                print("error=\(String(describing: error))")
-                self.staffIDLabel.text = ""
-                self.staffNameLabel.text = ""
-                self.checkedInSwitch.setOn(false, animated: false)
-                self.checkedInSwitch.isEnabled = false
-                self.checkedInSwitch.isHidden = true
-                self.staffIDTextField.text = ""
-                return
-            }
-            do
-            {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json
+        if reachability.connection != .none {
+            let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+            myActivityIndicator.center = view.center
+            myActivityIndicator.hidesWhenStopped = false
+            myActivityIndicator.startAnimating()
+            view.addSubview(myActivityIndicator)
+            
+            
+            let keychain = KeychainSwift()
+            let accessToken = keychain.get("accessToken")
+            
+            
+            let checkinUrl = URL(string: "\(v_host)/api/checkin/1/\(staffID)")
+            
+            var request = URLRequest(url: checkinUrl!)
+            
+            request.httpMethod = httpMethod
+            request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+            request.addValue("application/json", forHTTPHeaderField: "content-type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+
+            
+            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if error != nil
                 {
-                    let status = parseJSON["success"] as? Bool
-                    
-                    if status!
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                    print("error=\(String(describing: error))")
+                    self.staffIDLabel.text = ""
+                    self.staffNameLabel.text = ""
+                    self.checkedInSwitch.setOn(false, animated: false)
+                    self.checkedInSwitch.isEnabled = false
+                    self.checkedInSwitch.isHidden = true
+                    self.staffIDTextField.text = ""
+                    return
+                }
+                guard let data = data else {
+                    self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+                    return
+                }
+                do
+                {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = json
                     {
-                        DispatchQueue.main.async
-                            {
-                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        let status = parseJSON["success"] as? Bool
+                        
+                        if status!
+                        {
+                            DispatchQueue.main.async
+                                {
+                                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            }
+                        } else {
+                            let msg = parseJSON["msg"] as? String
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            self.staffIDLabel.text = ""
+                            self.staffNameLabel.text = ""
+                            self.checkedInSwitch.setOn(false, animated: false)
+                            self.checkedInSwitch.isEnabled = false
+                            self.checkedInSwitch.isHidden = true
+                            self.staffIDTextField.text = ""
+                            self.displayMessage(userMessage: msg!)
+                            return
                         }
                     } else {
-                        let msg = parseJSON["msg"] as? String
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         self.staffIDLabel.text = ""
                         self.staffNameLabel.text = ""
@@ -526,33 +552,23 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                         self.checkedInSwitch.isEnabled = false
                         self.checkedInSwitch.isHidden = true
                         self.staffIDTextField.text = ""
-                        self.displayMessage(userMessage: msg!)
-                        return
+                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
                     }
-                } else {
-                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                } catch {
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
                     self.checkedInSwitch.setOn(false, animated: false)
                     self.checkedInSwitch.isEnabled = false
                     self.checkedInSwitch.isHidden = true
                     self.staffIDTextField.text = ""
-                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                 }
-            } catch {
-                self.staffIDLabel.text = ""
-                self.staffNameLabel.text = ""
-                self.checkedInSwitch.setOn(false, animated: false)
-                self.checkedInSwitch.isEnabled = false
-                self.checkedInSwitch.isHidden = true
-                self.staffIDTextField.text = ""
-                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
             }
+            task.resume()
+            
+        } else {
+            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
         }
-        task.resume()
-
-        
-        
     }
     /*
     // MARK: - Navigation
