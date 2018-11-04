@@ -9,6 +9,6 @@ target 'AD_App' do
   pod 'EZSwiftExtensions', :git => 'https://github.com/shanyanhai/EZSwiftExtensions.git', :branch => 'Swift4.2'
   pod 'KeychainSwift', '~> 12.0'
   pod 'ReachabilitySwift'
-
+  pod 'SwiftyJSON', '~> 4.0'
 
 end
