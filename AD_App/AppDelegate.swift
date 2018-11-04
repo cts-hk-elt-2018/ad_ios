@@ -11,7 +11,8 @@ import EZSwiftExtensions
 import KeychainSwift
 import Reachability
 
-var v_host = "http://ad-backend.fqs3taypzi.ap-southeast-1.elasticbeanstalk.com/"
+var v_host = "http://ad-backend.fqs3taypzi.ap-southeast-1.elasticbeanstalk.com"
+//var v_host = "http://192.168.1.106:8081"
 var reachability = Reachability()!
 
 @UIApplicationMain
