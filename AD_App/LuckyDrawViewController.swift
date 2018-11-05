@@ -141,6 +141,9 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                         let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
                         self.giftPickerData += arrayNames
                         self.giftPickerId += arrayIds
+                        DispatchQueue.main.async {
+                            self.giftPicker.reloadAllComponents()
+                        }
                     } else {
                         let msg = json["msg"].stringValue
                         DispatchQueue.main.async
