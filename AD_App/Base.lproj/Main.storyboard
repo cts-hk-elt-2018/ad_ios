@@ -30,8 +30,8 @@
                                 </constraints>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-8w-aUU">
-                                <rect key="frame" x="342" y="647" width="52" height="30"/>
-                                <state key="normal" title="Redraw"/>
+                                <rect key="frame" x="254" y="647" width="140" height="30"/>
+                                <state key="normal" title="Remove and Redraw"/>
                                 <connections>
                                     <action selector="redrawButtonTapped:" destination="9pv-A4-QxB" eventType="touchUpInside" id="9xm-bl-WP9"/>
                                 </connections>
@@ -57,7 +57,7 @@
                                     <action selector="resetButtonTapped:" destination="9pv-A4-QxB" eventType="touchUpInside" id="9Mv-GC-gZg"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="avL-yD-448">
+                            <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="avL-yD-448">
                                 <rect key="frame" x="0.0" y="301.66666666666663" width="414" height="343.66666666666663"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -107,6 +107,7 @@
                         <outlet property="redrawButton" destination="CbX-8w-aUU" id="cJN-8C-t1u"/>
                         <outlet property="resetButton" destination="KxD-v7-2ew" id="ANn-IG-qe1"/>
                         <outlet property="showButton" destination="HfF-yX-O6E" id="nfy-9m-WR1"/>
+                        <outlet property="winnerTableView" destination="avL-yD-448" id="iAU-uP-pDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
