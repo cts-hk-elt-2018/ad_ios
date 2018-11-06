@@ -53,8 +53,9 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
         
         captureSession = AVCaptureSession()
         // Get the back-facing camera for capturing videos
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
+        
+        
         guard let captureDevice = deviceDiscoverySession.devices.first else {
             print("Failed to get the camera device")
             return
@@ -80,6 +81,9 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = cameraView.layer.bounds
+            videoPreviewLayer?.bounds = cameraView.layer.bounds
+            videoPreviewLayer?.masksToBounds = true
+            
             cameraView.layer.addSublayer(videoPreviewLayer!)
 
             // Start video capture.

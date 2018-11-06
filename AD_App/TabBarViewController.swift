@@ -12,11 +12,16 @@ import KeychainSwift
 
 class TabBarViewController: UITabBarController {
 
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-
+    
+    
     /*
     // MARK: - Navigation
 
