@@ -10,5 +10,6 @@ target 'AD_App' do
   pod 'KeychainSwift', '~> 12.0'
   pod 'ReachabilitySwift'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.0'
 
 end
