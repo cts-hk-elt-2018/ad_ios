@@ -382,6 +382,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     if let parseJSON = json
                     {
                         let status = parseJSON["success"] as? Bool
+                        let isAwardee = parseJSON["success"] as? Bool
                         
                         if status!
                         {
@@ -403,6 +404,9 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                                     self.staffIDTextField.text = ""
                                     
                                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                                    if isAwardee! {
+                                        self.displayMessage(userMessage: "\(r_staffName!) is an awardee. Please ask them to stay and give them a heads up.")
+                                    }
                             }
                         } else {
                             let msg = parseJSON["msg"] as? String
@@ -529,12 +533,16 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     if let parseJSON = json
                     {
                         let status = parseJSON["success"] as? Bool
+                        let isAwardee = parseJSON["isAwardee"] as? Bool
                         
                         if status!
                         {
                             DispatchQueue.main.async
                                 {
                                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                                    if isAwardee! && httpMethod == "POST" {
+                                        self.displayMessage(userMessage: "He/she is an awardee. Please ask them to stay and give them a heads up.")
+                                    }
                             }
                         } else {
                             let msg = parseJSON["msg"] as? String
