@@ -98,7 +98,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Lucky Draw" image="calculator" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Lucky Draw" image="gift" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="drawButton" destination="guh-E5-XdR" id="rUc-9m-j4E"/>
                         <outlet property="giftPicker" destination="qbc-8c-g5H" id="NSG-lh-jhw"/>
@@ -112,7 +112,87 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="834.78260869565224" y="-686.41304347826087"/>
+            <point key="canvasLocation" x="823" y="-686"/>
+        </scene>
+        <!--Game-->
+        <scene sceneID="o5Z-QG-fVH">
+            <objects>
+                <viewController id="xhz-pr-wHw" customClass="GameViewController" customModule="AD_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FBp-nU-Da0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eE-wT-cAH">
+                                <rect key="frame" x="47" y="20" width="320" height="187"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzn-zD-sHN">
+                                <rect key="frame" x="352" y="217" width="38" height="30"/>
+                                <state key="normal" title="Show"/>
+                                <connections>
+                                    <action selector="showButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="mEq-Ds-mAu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUC-fj-eev">
+                                <rect key="frame" x="241" y="332" width="81" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="81" id="fh4-hP-XvR"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="right"/>
+                                <connections>
+                                    <action selector="nextResponseButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="aS5-op-lH5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0f-Tr-SRZ">
+                                <rect key="frame" x="20" y="217" width="98" height="30"/>
+                                <state key="normal" title="Next Question"/>
+                                <connections>
+                                    <action selector="nextSessionButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="KVE-fq-zEZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wcv-Tc-uGh">
+                                <rect key="frame" x="95" y="332" width="83" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="83" id="9fl-Yj-9Qg"/>
+                                </constraints>
+                                <state key="normal" image="left"/>
+                                <connections>
+                                    <action selector="previousResponseButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="xqo-q5-Jrv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="F0f-Tr-SRZ" firstAttribute="firstBaseline" secondItem="dzn-zD-sHN" secondAttribute="firstBaseline" id="2Lp-QT-PFk"/>
+                            <constraint firstItem="hUC-fj-eev" firstAttribute="leading" secondItem="Wcv-Tc-uGh" secondAttribute="trailing" constant="63" id="3IN-GR-76U"/>
+                            <constraint firstItem="dzn-zD-sHN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1lw-4j-yQX" secondAttribute="leading" symbolic="YES" id="5XC-80-noz"/>
+                            <constraint firstItem="dzn-zD-sHN" firstAttribute="top" secondItem="3eE-wT-cAH" secondAttribute="bottom" constant="10" id="BEq-wJ-h5b"/>
+                            <constraint firstItem="1lw-4j-yQX" firstAttribute="bottom" secondItem="Wcv-Tc-uGh" secondAttribute="bottom" constant="283" id="CKr-fz-U9A"/>
+                            <constraint firstItem="1lw-4j-yQX" firstAttribute="trailing" secondItem="dzn-zD-sHN" secondAttribute="trailing" constant="24" id="KJz-RY-GXl"/>
+                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="bottom" secondItem="hUC-fj-eev" secondAttribute="bottom" id="OxY-MM-dqm"/>
+                            <constraint firstItem="F0f-Tr-SRZ" firstAttribute="leading" secondItem="1lw-4j-yQX" secondAttribute="leading" constant="20" id="aFG-j6-YOm"/>
+                            <constraint firstItem="3eE-wT-cAH" firstAttribute="centerX" secondItem="1lw-4j-yQX" secondAttribute="centerX" id="dYM-ZY-1ei"/>
+                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="leading" secondItem="1lw-4j-yQX" secondAttribute="leading" constant="95" id="dvX-FE-suJ"/>
+                            <constraint firstItem="1lw-4j-yQX" firstAttribute="trailing" secondItem="hUC-fj-eev" secondAttribute="trailing" constant="92" id="fEx-l6-m0Z"/>
+                            <constraint firstItem="hUC-fj-eev" firstAttribute="top" secondItem="3eE-wT-cAH" secondAttribute="bottom" constant="125" id="gzy-Dh-9mn"/>
+                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="centerY" secondItem="FBp-nU-Da0" secondAttribute="centerY" id="n2v-rr-BOc"/>
+                            <constraint firstItem="dzn-zD-sHN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="F0f-Tr-SRZ" secondAttribute="trailing" constant="8" symbolic="YES" id="nK9-BF-vLF"/>
+                            <constraint firstItem="3eE-wT-cAH" firstAttribute="top" secondItem="1lw-4j-yQX" secondAttribute="top" id="ngj-pF-v45"/>
+                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="top" secondItem="hUC-fj-eev" secondAttribute="top" id="pen-A9-3jC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1lw-4j-yQX"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Game" image="game_controller" id="SKH-V3-udA"/>
+                    <connections>
+                        <outlet property="gameQuestionPickerView" destination="3eE-wT-cAH" id="Nsy-ab-jPU"/>
+                        <outlet property="nextResponseButton" destination="hUC-fj-eev" id="Ocq-xT-MHV"/>
+                        <outlet property="nextSessionButton" destination="F0f-Tr-SRZ" id="Jus-xz-qPr"/>
+                        <outlet property="previousResponseButton" destination="Wcv-Tc-uGh" id="pE0-8Z-k3e"/>
+                        <outlet property="showButton" destination="dzn-zD-sHN" id="uy4-G9-xNQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="akn-fK-U6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644.9275362318842" y="-686.41304347826087"/>
         </scene>
         <!--Setting-->
         <scene sceneID="wg7-f3-ORb">
@@ -143,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="739" y="788"/>
+            <point key="canvasLocation" x="823" y="730"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="itC-rj-iPm">
@@ -221,11 +301,13 @@
                         <segue destination="PWN-lp-CJQ" kind="relationship" relationship="viewControllers" id="r6q-vb-ow5"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="xhz-pr-wHw" kind="relationship" relationship="viewControllers" id="iOd-Q1-cHG"/>
+                        <segue destination="nLr-sh-HgX" kind="relationship" relationship="viewControllers" id="IIB-wZ-z4L"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-4" y="-2"/>
         </scene>
         <!--CheckinViewController-->
         <scene sceneID="JnK-6L-25e">
@@ -304,12 +386,32 @@
             </objects>
             <point key="canvasLocation" x="823.1884057971015" y="-1.6304347826086958"/>
         </scene>
+        <!--Award-->
+        <scene sceneID="TuX-HK-cva">
+            <objects>
+                <viewController id="nLr-sh-HgX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xtO-ie-LbT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4Qo-dx-lgW"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Award" image="trophy" id="TqE-bB-T1w"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lUc-RA-lhd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1645" y="-2"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo2" width="512" height="512"/>
-        <image name="calculator" width="30" height="30"/>
         <image name="face_ID" width="30" height="30"/>
+        <image name="game_controller" width="30" height="30"/>
+        <image name="gift" width="30" height="30"/>
+        <image name="left" width="375" height="375"/>
+        <image name="right" width="375" height="375"/>
         <image name="search" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
+        <image name="trophy" width="30" height="30"/>
     </resources>
 </document>
