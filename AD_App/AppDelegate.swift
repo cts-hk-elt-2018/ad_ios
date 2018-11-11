@@ -18,7 +18,7 @@ var v_host = "http://ad-backend.fqs3taypzi.ap-southeast-1.elasticbeanstalk.com"
 var reachability = Reachability()!
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        UIApplication.shared.registerForRemoteNotifications()
         registerForPushNotifications()
+        UNUserNotificationCenter.current().delegate = self
         
         let keychain = KeychainSwift()
         let accessToken = keychain.get("accessToken")
@@ -83,6 +84,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data -> String in
