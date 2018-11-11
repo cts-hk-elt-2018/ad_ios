@@ -21,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		58092D8D2178581300BF72C1 /* CheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewController.swift; sourceTree = "<group>"; };
+		5812F7C82198105C007987DC /* AD_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AD_App.entitlements; sourceTree = "<group>"; };
 		582C698521772DF0004BDD35 /* AD_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AD_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		582C698821772DF0004BDD35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		582C698A21772DF0004BDD35 /* LuckyDrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDrawViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		582C698721772DF0004BDD35 /* AD_App */ = {
 			isa = PBXGroup;
 			children = (
+				5812F7C82198105C007987DC /* AD_App.entitlements */,
 				582C698821772DF0004BDD35 /* AppDelegate.swift */,
 				582C698A21772DF0004BDD35 /* LuckyDrawViewController.swift */,
 				582C698C21772DF0004BDD35 /* SettingViewController.swift */,
@@ -137,6 +139,9 @@
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -383,6 +388,7 @@
 			baseConfigurationReference = CA814EB0D3B8A9F63C8781A2 /* Pods-AD_App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AD_App/AD_App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6SLC4TZF93;
@@ -403,6 +409,7 @@
 			baseConfigurationReference = A51068EB41AD05F956EB09E4 /* Pods-AD_App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AD_App/AD_App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6SLC4TZF93;

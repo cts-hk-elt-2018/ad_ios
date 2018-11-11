@@ -123,9 +123,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             DispatchQueue.main.async
                             {
-                                    let homePage = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-                                    let appDelegate = UIApplication.shared.delegate
-                                    appDelegate?.window??.rootViewController = homePage
+                                UIApplication.shared.registerForRemoteNotifications()
+                                let homePage = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                let appDelegate = UIApplication.shared.delegate
+                                appDelegate?.window??.rootViewController = homePage
                             }
 
                         } else {

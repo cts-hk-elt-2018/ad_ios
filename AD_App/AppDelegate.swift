@@ -10,6 +10,8 @@ import UIKit
 import EZSwiftExtensions
 import KeychainSwift
 import Reachability
+import UserNotifications
+import SwiftyJSON
 
 var v_host = "http://ad-backend.fqs3taypzi.ap-southeast-1.elasticbeanstalk.com"
 //var v_host = "http://192.168.1.106:8081"
@@ -23,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        UIApplication.shared.registerForRemoteNotifications()
+        registerForPushNotifications()
         
         let keychain = KeychainSwift()
         let accessToken = keychain.get("accessToken")
@@ -59,6 +64,89 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func registerForPushNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+            (granted, error) in
+            print("Permission granted: \(granted)")
+            
+            guard granted else { return }
+            self.getNotificationSettings()
+        }
+    }
 
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        
+        let token = tokenParts.joined()
+        
+        let keychain = KeychainSwift()
+        let accessToken = keychain.get("accessToken")
+        
+        if accessToken != nil
+        {
+            if reachability.connection != .none {
+                let url = URL(string: "\(v_host)/api/notification/ios")
+                
+                var request = URLRequest(url: url!)
+                
+                request.httpMethod = "POST"
+                request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+                request.addValue("application/json", forHTTPHeaderField: "content-type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                let postString = ["token": token] as [String: String]
+                
+                do {
+                    request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+                
+                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                    if error != nil
+                    {
+                        print("error=\(String(describing: error))")
+                        return
+                    }
+                    guard let data = data else {
+                        return
+                    }
+                    do
+                    {
+                        let json = try JSON(data: data)
+                        
+                        if json["success"].bool! {
+                            print("success")
+                        } else {
+                            print("error in json")
+                        }
+                        
+                    } catch {
+                        print("error=\(String(describing: error))")
+                    }
+                }
+                task.resume()
+            }
+        }
+        print("Device Token: \(token)")
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
 }
 
