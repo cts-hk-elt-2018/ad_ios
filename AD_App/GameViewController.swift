@@ -139,7 +139,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     let json = try JSON(data: data)
                     
                     if !json["success"].bool! {
-                    } else {
                         let msg = json["msg"].stringValue
                         DispatchQueue.main.async
                             {
@@ -189,7 +188,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     let json = try JSON(data: data)
                     
                     if !json["success"].bool! {
-                    } else {
                         let msg = json["msg"].stringValue
                         DispatchQueue.main.async
                             {
