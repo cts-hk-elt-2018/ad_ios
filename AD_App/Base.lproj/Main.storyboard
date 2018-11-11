@@ -98,7 +98,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Lucky Draw" image="gift" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Lucky Draw" image="gift" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="drawButton" destination="guh-E5-XdR" id="rUc-9m-j4E"/>
                         <outlet property="giftPicker" destination="qbc-8c-g5H" id="NSG-lh-jhw"/>
@@ -123,17 +123,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eE-wT-cAH">
-                                <rect key="frame" x="47" y="20" width="320" height="187"/>
+                                <rect key="frame" x="47" y="20" width="320" height="158"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzn-zD-sHN">
-                                <rect key="frame" x="352" y="217" width="38" height="30"/>
+                                <rect key="frame" x="352" y="188" width="38" height="30"/>
                                 <state key="normal" title="Show"/>
                                 <connections>
                                     <action selector="showButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="mEq-Ds-mAu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUC-fj-eev">
-                                <rect key="frame" x="241" y="332" width="81" height="72"/>
+                                <rect key="frame" x="238" y="303" width="84" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="81" id="fh4-hP-XvR"/>
                                 </constraints>
@@ -143,16 +143,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0f-Tr-SRZ">
-                                <rect key="frame" x="20" y="217" width="98" height="30"/>
+                                <rect key="frame" x="20" y="188" width="98" height="30"/>
                                 <state key="normal" title="Next Question"/>
                                 <connections>
                                     <action selector="nextSessionButtonTapped:" destination="xhz-pr-wHw" eventType="touchUpInside" id="KVE-fq-zEZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wcv-Tc-uGh">
-                                <rect key="frame" x="95" y="332" width="83" height="72"/>
+                                <rect key="frame" x="92" y="303" width="83" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="83" id="9fl-Yj-9Qg"/>
+                                    <constraint firstAttribute="height" constant="130" id="US3-YK-cVU"/>
                                 </constraints>
                                 <state key="normal" image="left"/>
                                 <connections>
@@ -166,12 +167,11 @@
                             <constraint firstItem="hUC-fj-eev" firstAttribute="leading" secondItem="Wcv-Tc-uGh" secondAttribute="trailing" constant="63" id="3IN-GR-76U"/>
                             <constraint firstItem="dzn-zD-sHN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1lw-4j-yQX" secondAttribute="leading" symbolic="YES" id="5XC-80-noz"/>
                             <constraint firstItem="dzn-zD-sHN" firstAttribute="top" secondItem="3eE-wT-cAH" secondAttribute="bottom" constant="10" id="BEq-wJ-h5b"/>
-                            <constraint firstItem="1lw-4j-yQX" firstAttribute="bottom" secondItem="Wcv-Tc-uGh" secondAttribute="bottom" constant="283" id="CKr-fz-U9A"/>
                             <constraint firstItem="1lw-4j-yQX" firstAttribute="trailing" secondItem="dzn-zD-sHN" secondAttribute="trailing" constant="24" id="KJz-RY-GXl"/>
                             <constraint firstItem="Wcv-Tc-uGh" firstAttribute="bottom" secondItem="hUC-fj-eev" secondAttribute="bottom" id="OxY-MM-dqm"/>
                             <constraint firstItem="F0f-Tr-SRZ" firstAttribute="leading" secondItem="1lw-4j-yQX" secondAttribute="leading" constant="20" id="aFG-j6-YOm"/>
                             <constraint firstItem="3eE-wT-cAH" firstAttribute="centerX" secondItem="1lw-4j-yQX" secondAttribute="centerX" id="dYM-ZY-1ei"/>
-                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="leading" secondItem="1lw-4j-yQX" secondAttribute="leading" constant="95" id="dvX-FE-suJ"/>
+                            <constraint firstItem="Wcv-Tc-uGh" firstAttribute="leading" secondItem="1lw-4j-yQX" secondAttribute="leading" constant="92" id="dvX-FE-suJ"/>
                             <constraint firstItem="1lw-4j-yQX" firstAttribute="trailing" secondItem="hUC-fj-eev" secondAttribute="trailing" constant="92" id="fEx-l6-m0Z"/>
                             <constraint firstItem="hUC-fj-eev" firstAttribute="top" secondItem="3eE-wT-cAH" secondAttribute="bottom" constant="125" id="gzy-Dh-9mn"/>
                             <constraint firstItem="Wcv-Tc-uGh" firstAttribute="centerY" secondItem="FBp-nU-Da0" secondAttribute="centerY" id="n2v-rr-BOc"/>
@@ -181,7 +181,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1lw-4j-yQX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Game" image="game_controller" id="SKH-V3-udA"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Game" image="game_controller" id="SKH-V3-udA"/>
                     <connections>
                         <outlet property="gameQuestionPickerView" destination="3eE-wT-cAH" id="Nsy-ab-jPU"/>
                         <outlet property="nextResponseButton" destination="hUC-fj-eev" id="Ocq-xT-MHV"/>
@@ -202,9 +202,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKn-eP-BPS">
+                            <pickerView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cpd-TK-HhK">
+                                <rect key="frame" x="0.0" y="64" width="414" height="156"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="156" id="A5V-7B-AM0"/>
+                                </constraints>
+                            </pickerView>
+                            <pickerView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kv4-c5-5K8">
+                                <rect key="frame" x="0.0" y="258" width="414" height="182"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="182" id="MBd-zC-TnV"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2io-kE-s5o">
+                                <rect key="frame" x="356" y="220" width="38" height="30"/>
+                                <state key="normal" title="Show"/>
+                                <connections>
+                                    <action selector="showButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="m1J-9o-2bN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fe3-Cj-pzR">
+                                <rect key="frame" x="364" y="440" width="30" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="TcJ-iP-TX3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable screen-related control" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTC-Gh-sAm">
+                                <rect key="frame" x="20" y="504" width="227" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3x5-mg-bfd">
+                                <rect key="frame" x="345" y="499" width="51" height="31"/>
+                                <connections>
+                                    <action selector="enableScreenControlChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="AD4-Eu-Dkv"/>
+                                </connections>
+                            </switch>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKn-eP-BPS">
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Setting" id="NCL-Lt-AIM">
                                         <barButtonItem key="rightBarButtonItem" title="Logout" id="agE-T2-6x2">
@@ -217,13 +254,42 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Kv4-c5-5K8" firstAttribute="top" secondItem="2io-kE-s5o" secondAttribute="bottom" constant="8" symbolic="YES" id="6uj-4c-NvR"/>
+                            <constraint firstItem="3x5-mg-bfd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VTC-Gh-sAm" secondAttribute="trailing" constant="8" symbolic="YES" id="D0g-6X-CLi"/>
+                            <constraint firstItem="3x5-mg-bfd" firstAttribute="top" secondItem="Fe3-Cj-pzR" secondAttribute="bottom" constant="29" id="FmB-Rt-Ld9"/>
+                            <constraint firstItem="Cpd-TK-HhK" firstAttribute="trailing" secondItem="bKn-eP-BPS" secondAttribute="trailing" id="G8T-3d-W9k"/>
+                            <constraint firstItem="Kv4-c5-5K8" firstAttribute="trailing" secondItem="Cpd-TK-HhK" secondAttribute="trailing" id="HD2-Yg-Nj4"/>
+                            <constraint firstItem="2io-kE-s5o" firstAttribute="top" secondItem="Cpd-TK-HhK" secondAttribute="bottom" id="K03-v0-wZ2"/>
+                            <constraint firstItem="VTC-Gh-sAm" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Mdk-IM-ZAn"/>
+                            <constraint firstItem="bKn-eP-BPS" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="MgO-XT-NEF"/>
+                            <constraint firstItem="VTC-Gh-sAm" firstAttribute="centerY" secondItem="3x5-mg-bfd" secondAttribute="centerY" id="O3S-Ff-Qko"/>
+                            <constraint firstItem="Cpd-TK-HhK" firstAttribute="top" secondItem="bKn-eP-BPS" secondAttribute="bottom" id="T1Y-5b-3Ge"/>
+                            <constraint firstItem="Fe3-Cj-pzR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O1u-W8-tvY" secondAttribute="leading" symbolic="YES" id="Ytk-gF-E0c"/>
+                            <constraint firstItem="bKn-eP-BPS" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="aBD-E2-eZj"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="3x5-mg-bfd" secondAttribute="trailing" constant="20" id="hOw-bO-jUz"/>
+                            <constraint firstItem="bKn-eP-BPS" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="hxs-da-jcn"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="Fe3-Cj-pzR" secondAttribute="trailing" constant="20" id="lvP-md-spK"/>
+                            <constraint firstItem="2io-kE-s5o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O1u-W8-tvY" secondAttribute="leading" symbolic="YES" id="pHr-i3-zZD"/>
+                            <constraint firstItem="Cpd-TK-HhK" firstAttribute="leading" secondItem="bKn-eP-BPS" secondAttribute="leading" id="rzx-gX-WeU"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="2io-kE-s5o" secondAttribute="trailing" constant="20" id="sCv-Iv-bG4"/>
+                            <constraint firstItem="Kv4-c5-5K8" firstAttribute="leading" secondItem="Cpd-TK-HhK" secondAttribute="leading" id="wrc-aC-hIO"/>
+                            <constraint firstItem="Fe3-Cj-pzR" firstAttribute="top" secondItem="Kv4-c5-5K8" secondAttribute="bottom" id="xOb-3O-nkr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Setting" image="settings" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="enableScreenControlSwitch" destination="3x5-mg-bfd" id="F8w-r2-bVH"/>
+                        <outlet property="pagePicker" destination="Cpd-TK-HhK" id="ZXS-w4-hdp"/>
+                        <outlet property="playButton" destination="Fe3-Cj-pzR" id="UHc-tR-43X"/>
+                        <outlet property="showButton" destination="2io-kE-s5o" id="kgV-0Z-6c5"/>
+                        <outlet property="soundPicker" destination="Kv4-c5-5K8" id="A9L-6Y-jDz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823" y="730"/>
+            <point key="canvasLocation" x="821.73913043478262" y="729.61956521739137"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="itC-rj-iPm">
@@ -300,9 +366,9 @@
                     <connections>
                         <segue destination="PWN-lp-CJQ" kind="relationship" relationship="viewControllers" id="r6q-vb-ow5"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="xhz-pr-wHw" kind="relationship" relationship="viewControllers" id="iOd-Q1-cHG"/>
                         <segue destination="nLr-sh-HgX" kind="relationship" relationship="viewControllers" id="IIB-wZ-z4L"/>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -393,14 +459,70 @@
                     <view key="view" contentMode="scaleToFill" id="xtO-ie-LbT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-Df-76j">
+                                <rect key="frame" x="0.0" y="20" width="414" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="KQZ-BB-B7L"/>
+                                </constraints>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VH-mT-3DP">
+                                <rect key="frame" x="0.0" y="175" width="414" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="NJL-vG-Yum"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcQ-0f-cDn">
+                                <rect key="frame" x="356" y="128" width="38" height="30"/>
+                                <state key="normal" title="Show"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OB5-rr-noj">
+                                <rect key="frame" x="20" y="128" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pb7-dw-4TB">
+                                <rect key="frame" x="356" y="283" width="38" height="30"/>
+                                <state key="normal" title="Show"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXR-4Y-xPD">
+                                <rect key="frame" x="20" y="283" width="79" height="30"/>
+                                <state key="normal" title="Next Award"/>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-df-VwL">
+                                <rect key="frame" x="0.0" y="313" width="414" height="374"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cd2-Df-76j" firstAttribute="leading" secondItem="xtO-ie-LbT" secondAttribute="leading" id="65U-5T-C44"/>
+                            <constraint firstItem="4Qo-dx-lgW" firstAttribute="trailing" secondItem="pb7-dw-4TB" secondAttribute="trailing" constant="20" id="6T1-2x-fIn"/>
+                            <constraint firstItem="RF3-df-VwL" firstAttribute="top" secondItem="VXR-4Y-xPD" secondAttribute="bottom" id="AdW-vt-vqx"/>
+                            <constraint firstItem="pb7-dw-4TB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VXR-4Y-xPD" secondAttribute="trailing" constant="8" symbolic="YES" id="GiZ-xK-uYA"/>
+                            <constraint firstItem="dcQ-0f-cDn" firstAttribute="top" secondItem="Cd2-Df-76j" secondAttribute="bottom" constant="8" id="NDi-Zh-jpL"/>
+                            <constraint firstItem="OB5-rr-noj" firstAttribute="leading" secondItem="4Qo-dx-lgW" secondAttribute="leading" constant="20" id="Naf-nx-yz4"/>
+                            <constraint firstItem="RF3-df-VwL" firstAttribute="centerX" secondItem="4Qo-dx-lgW" secondAttribute="centerX" id="OjB-6g-5aG"/>
+                            <constraint firstItem="dcQ-0f-cDn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OB5-rr-noj" secondAttribute="trailing" constant="8" symbolic="YES" id="OxK-hs-Cc0"/>
+                            <constraint firstItem="4Qo-dx-lgW" firstAttribute="trailing" secondItem="dcQ-0f-cDn" secondAttribute="trailing" constant="20" id="TwF-ue-fWp"/>
+                            <constraint firstItem="5VH-mT-3DP" firstAttribute="centerX" secondItem="4Qo-dx-lgW" secondAttribute="centerX" id="ast-fy-GuY"/>
+                            <constraint firstItem="5VH-mT-3DP" firstAttribute="top" secondItem="dcQ-0f-cDn" secondAttribute="bottom" constant="17" id="dz2-cR-w6e"/>
+                            <constraint firstItem="pb7-dw-4TB" firstAttribute="top" secondItem="5VH-mT-3DP" secondAttribute="bottom" constant="8" id="gs8-rg-pGb"/>
+                            <constraint firstItem="5VH-mT-3DP" firstAttribute="width" secondItem="Cd2-Df-76j" secondAttribute="width" id="ieR-f1-Uts"/>
+                            <constraint firstItem="RF3-df-VwL" firstAttribute="width" secondItem="xtO-ie-LbT" secondAttribute="width" id="mgK-ZQ-hQy"/>
+                            <constraint firstItem="OB5-rr-noj" firstAttribute="firstBaseline" secondItem="dcQ-0f-cDn" secondAttribute="firstBaseline" id="oV7-01-Lyn"/>
+                            <constraint firstItem="VXR-4Y-xPD" firstAttribute="leading" secondItem="4Qo-dx-lgW" secondAttribute="leading" constant="20" id="qDv-Le-RMc"/>
+                            <constraint firstItem="Cd2-Df-76j" firstAttribute="top" secondItem="4Qo-dx-lgW" secondAttribute="top" id="wez-wS-ZCI"/>
+                            <constraint firstItem="4Qo-dx-lgW" firstAttribute="bottom" secondItem="RF3-df-VwL" secondAttribute="bottom" id="xx5-PT-t51"/>
+                            <constraint firstItem="VXR-4Y-xPD" firstAttribute="firstBaseline" secondItem="pb7-dw-4TB" secondAttribute="firstBaseline" id="y5D-Og-Fc9"/>
+                            <constraint firstAttribute="trailing" secondItem="Cd2-Df-76j" secondAttribute="trailing" id="zQ6-dE-b3f"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4Qo-dx-lgW"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Award" image="trophy" id="TqE-bB-T1w"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Award" image="trophy" id="TqE-bB-T1w"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUc-RA-lhd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1645" y="-2"/>
+            <point key="canvasLocation" x="1644.9275362318842" y="-2.4456521739130435"/>
         </scene>
     </scenes>
     <resources>
