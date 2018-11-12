@@ -27,6 +27,10 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.hideKeyboardWhenTappedAround()
 
         // Do any additional setup after loading the view, typically from a nib.
+        pagePicker.delegate = self
+        pagePicker.dataSource = self
+        soundPicker.delegate = self
+        soundPicker.dataSource = self
         
         pagePickerData = ["--- Page ---"]
         soundPickerData = ["--- Sound Effect ---"]
