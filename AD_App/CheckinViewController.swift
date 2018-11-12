@@ -404,9 +404,9 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                                     self.staffIDTextField.text = ""
                                     
                                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                                    if isAwardee! {
-                                        self.displayMessage(userMessage: "\(r_staffName!) is an awardee. Please ask them to stay and give them a heads up.")
-                                    }
+//                                    if isAwardee! {
+//                                        self.displayMessage(userMessage: "\(r_staffName!) is an awardee. Please ask them to stay and give them a heads up.")
+//                                    }
                             }
                         } else {
                             let msg = parseJSON["msg"] as? String
@@ -540,9 +540,9 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                             DispatchQueue.main.async
                                 {
                                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                                    if isAwardee! && httpMethod == "POST" {
-                                        self.displayMessage(userMessage: "He/she is an awardee. Please ask them to stay and give them a heads up.")
-                                    }
+//                                    if isAwardee! && httpMethod == "POST" {
+//                                        self.displayMessage(userMessage: "He/she is an awardee. Please ask them to stay and give them a heads up.")
+//                                    }
                             }
                         } else {
                             let msg = parseJSON["msg"] as? String
