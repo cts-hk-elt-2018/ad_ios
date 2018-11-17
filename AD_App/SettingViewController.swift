@@ -22,6 +22,11 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var soundPickerId: [String] = [String]()
     var soundPickerData: [String] = [String]()
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()

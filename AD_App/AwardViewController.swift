@@ -35,6 +35,11 @@ class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var notCheckedInAwardeeTableDetail: [String] = [String]()
     var awardeeTableSection: [String] = [String]()
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

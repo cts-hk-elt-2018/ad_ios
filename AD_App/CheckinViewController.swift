@@ -22,6 +22,11 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var qrCodeFrameView:UIView?
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -382,7 +387,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     if let parseJSON = json
                     {
                         let status = parseJSON["success"] as? Bool
-                        let isAwardee = parseJSON["success"] as? Bool
+//                        let isAwardee = parseJSON["success"] as? Bool
                         
                         if status!
                         {
@@ -533,7 +538,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     if let parseJSON = json
                     {
                         let status = parseJSON["success"] as? Bool
-                        let isAwardee = parseJSON["isAwardee"] as? Bool
+//                        let isAwardee = parseJSON["isAwardee"] as? Bool
                         
                         if status!
                         {

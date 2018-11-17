@@ -30,6 +30,11 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     var winnerTableData: [String] = [String]()
     var winnerTableId: [String] = [String]()
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()

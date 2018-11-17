@@ -22,6 +22,11 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var gameQuestionPickerId: [String] = [String]()
     var questionId: String = ""
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

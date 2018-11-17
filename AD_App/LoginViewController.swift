@@ -23,6 +23,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        //return UIStatusBarStyle.default   // Make dark again
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == staffIDTextField {
             passwordTextField.becomeFirstResponder()
