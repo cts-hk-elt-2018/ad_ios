@@ -16,19 +16,20 @@ class HeadlineTableViewCell: UITableViewCell {
     
 }
 
-class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
+//class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class AwardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var awardPicker: UIPickerView!
-    @IBOutlet weak var awardeePicker: UIPickerView!
-    @IBOutlet weak var showAwardButton: UIButton!
-    @IBOutlet weak var showAwardeeButton: UIButton!
-    @IBOutlet weak var nextAwardButton: UIButton!
+//    @IBOutlet weak var awardPicker: UIPickerView!
+//    @IBOutlet weak var awardeePicker: UIPickerView!
+//    @IBOutlet weak var showAwardButton: UIButton!
+//    @IBOutlet weak var showAwardeeButton: UIButton!
+//    @IBOutlet weak var nextAwardButton: UIButton!
     @IBOutlet weak var awardeeTable: UITableView!
     
-    var awardPickerData: [String] = [String]()
-    var awardPickerId: [String] = [String]()
-    var awardeePickerData: [String] = [String]()
-    var awardeePickerId: [String] = [String]()
+//    var awardPickerData: [String] = [String]()
+//    var awardPickerId: [String] = [String]()
+//    var awardeePickerData: [String] = [String]()
+//    var awardeePickerId: [String] = [String]()
     var checkedInAwardeeTableData: [String] = [String]()
     var checkedInAwardeeTableDetail: [String] = [String]()
     var notCheckedInAwardeeTableData: [String] = [String]()
@@ -44,167 +45,167 @@ class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.awardPicker.delegate = self
-        self.awardPicker.dataSource = self
-        self.awardeePicker.delegate = self
-        self.awardeePicker.dataSource = self
+//        self.awardPicker.delegate = self
+//        self.awardPicker.dataSource = self
+//        self.awardeePicker.delegate = self
+//        self.awardeePicker.dataSource = self
         self.awardeeTable.delegate = self
         self.awardeeTable.dataSource = self
         
-        awardPickerData = ["--- Award ---"]
-        awardPickerId = ["0"]
-        
-        awardeePickerData = ["--- Awardee ---"]
-        awardeePickerId = ["0"]
+//        awardPickerData = ["--- Award ---"]
+//        awardPickerId = ["0"]
+//
+//        awardeePickerData = ["--- Awardee ---"]
+//        awardeePickerId = ["0"]
         
         awardeeTableSection = ["Checked in", "Not checked in"]
         
-        getAwardList()
+//        getAwardList()
         getAwardeeStatus()
     }
     
-    @IBAction func showAwardButtonTapped(_ sender: Any) {
-        let currentRow = self.awardPicker.selectedRow(inComponent: 0)
-        if currentRow > 0 {
-            let awardId = self.awardPickerId[currentRow]
-            if reachability.connection != .none {
-                let keychain = KeychainSwift()
-                let accessToken = keychain.get("accessToken")
-                
-                
-                let url = URL(string: "\(v_host)/api/award/\(awardId)")
-                
-                var request = URLRequest(url: url!)
-                
-                request.httpMethod = "GET"
-                request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
-                request.addValue("application/json", forHTTPHeaderField: "content-type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                    if error != nil
-                    {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                        print("error=\(String(describing: error))")
-                        return
-                    }
-                    guard let data = data else {
-                        self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-                        return
-                    }
-                    do
-                    {
-                        let json = try JSON(data: data)
-                        
-                        if json["success"].bool! {
-                            let arrayNames = json["result"].arrayValue.map({$0["User"]["firstName"].stringValue + " " + $0["User"]["lastName"].stringValue + " (" + $0["User"]["username"].stringValue + ")"})
-                            let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
-                            self.awardeePickerData += arrayNames
-                            self.awardeePickerId += arrayIds
-                            DispatchQueue.main.async {
-                                self.awardPicker.alpha = 0.6
-                                self.awardPicker.isUserInteractionEnabled = false
-                                self.awardeePicker.reloadAllComponents()
-                                self.awardeePicker.alpha = 1
-                                self.awardeePicker.isUserInteractionEnabled = true
-                                self.showAwardeeButton.isEnabled = true
-                                self.nextAwardButton.isEnabled = true
-                            }
-                        } else {
-                            let msg = json["msg"].stringValue
-                            DispatchQueue.main.async
-                                {
-                                    self.displayMessage(userMessage: msg)
-                            }
-                            return
-                        }
-                        
-                    } catch {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                        print("error=\(String(describing: error))")
-                    }
-                }
-                task.resume()
-            } else {
-                self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-            }
-        }
-    }
-    
-    
-    @IBAction func showAwardeeButtonTapped(_ sender: Any) {
-        let currentAwardRow = self.awardPicker.selectedRow(inComponent: 0)
-        let currentAwardeeRow = self.awardeePicker.selectedRow(inComponent: 0)
-        if currentAwardRow > 0 && currentAwardeeRow > 0 {
-            let awardId = self.awardPickerId[currentAwardRow]
-            let awardeeId = self.awardeePickerId[currentAwardeeRow]
-            if reachability.connection != .none {
-                let keychain = KeychainSwift()
-                let accessToken = keychain.get("accessToken")
-                
-                
-                let url = URL(string: "\(v_host)/api/award/\(awardId)/\(awardeeId)")
-                
-                var request = URLRequest(url: url!)
-                
-                request.httpMethod = "GET"
-                request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
-                request.addValue("application/json", forHTTPHeaderField: "content-type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                    if error != nil
-                    {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                        print("error=\(String(describing: error))")
-                        return
-                    }
-                    guard let data = data else {
-                        self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-                        return
-                    }
-                    do
-                    {
-                        let json = try JSON(data: data)
-                        
-                        if !json["success"].bool! {
-                            let msg = json["msg"].stringValue
-                            DispatchQueue.main.async
-                                {
-                                    self.displayMessage(userMessage: msg)
-                            }
-                            return
-                        }
-                        
-                    } catch {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                        print("error=\(String(describing: error))")
-                    }
-                }
-                task.resume()
-            } else {
-                self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-            }
-        }
-    }
-    
-    @IBAction func nextAwardButtonTapped(_ sender: Any) {
-        DispatchQueue.main.async
-            {
-                self.awardPicker.selectRow(0, inComponent: 0, animated: true)
-                self.awardPicker.isUserInteractionEnabled = true
-                self.awardPicker.alpha = 1
-                self.awardeePicker.selectRow(0, inComponent: 0, animated: true)
-                self.awardeePicker.isUserInteractionEnabled = false
-                self.awardeePicker.alpha = 0.6
-                self.awardeePickerData = ["--- Awardee ---"]
-                self.awardeePickerId = ["0"]
-                self.awardeePicker.reloadAllComponents()
-                self.showAwardButton.isEnabled = true
-                self.showAwardeeButton.isEnabled = false
-                self.nextAwardButton.isEnabled = false
-        }
-    }
+//    @IBAction func showAwardButtonTapped(_ sender: Any) {
+//        let currentRow = self.awardPicker.selectedRow(inComponent: 0)
+//        if currentRow > 0 {
+//            let awardId = self.awardPickerId[currentRow]
+//            if reachability.connection != .none {
+//                let keychain = KeychainSwift()
+//                let accessToken = keychain.get("accessToken")
+//
+//
+//                let url = URL(string: "\(v_host)/api/award/\(awardId)")
+//
+//                var request = URLRequest(url: url!)
+//
+//                request.httpMethod = "GET"
+//                request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+//                request.addValue("application/json", forHTTPHeaderField: "content-type")
+//                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+//                    if error != nil
+//                    {
+//                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                        print("error=\(String(describing: error))")
+//                        return
+//                    }
+//                    guard let data = data else {
+//                        self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//                        return
+//                    }
+//                    do
+//                    {
+//                        let json = try JSON(data: data)
+//
+//                        if json["success"].bool! {
+//                            let arrayNames = json["result"].arrayValue.map({$0["User"]["firstName"].stringValue + " " + $0["User"]["lastName"].stringValue + " (" + $0["User"]["username"].stringValue + ")"})
+//                            let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
+//                            self.awardeePickerData += arrayNames
+//                            self.awardeePickerId += arrayIds
+//                            DispatchQueue.main.async {
+//                                self.awardPicker.alpha = 0.6
+//                                self.awardPicker.isUserInteractionEnabled = false
+//                                self.awardeePicker.reloadAllComponents()
+//                                self.awardeePicker.alpha = 1
+//                                self.awardeePicker.isUserInteractionEnabled = true
+//                                self.showAwardeeButton.isEnabled = true
+//                                self.nextAwardButton.isEnabled = true
+//                            }
+//                        } else {
+//                            let msg = json["msg"].stringValue
+//                            DispatchQueue.main.async
+//                                {
+//                                    self.displayMessage(userMessage: msg)
+//                            }
+//                            return
+//                        }
+//
+//                    } catch {
+//                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                        print("error=\(String(describing: error))")
+//                    }
+//                }
+//                task.resume()
+//            } else {
+//                self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//            }
+//        }
+//    }
+//
+//
+//    @IBAction func showAwardeeButtonTapped(_ sender: Any) {
+//        let currentAwardRow = self.awardPicker.selectedRow(inComponent: 0)
+//        let currentAwardeeRow = self.awardeePicker.selectedRow(inComponent: 0)
+//        if currentAwardRow > 0 && currentAwardeeRow > 0 {
+//            let awardId = self.awardPickerId[currentAwardRow]
+//            let awardeeId = self.awardeePickerId[currentAwardeeRow]
+//            if reachability.connection != .none {
+//                let keychain = KeychainSwift()
+//                let accessToken = keychain.get("accessToken")
+//
+//
+//                let url = URL(string: "\(v_host)/api/award/\(awardId)/\(awardeeId)")
+//
+//                var request = URLRequest(url: url!)
+//
+//                request.httpMethod = "GET"
+//                request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+//                request.addValue("application/json", forHTTPHeaderField: "content-type")
+//                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+//                    if error != nil
+//                    {
+//                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                        print("error=\(String(describing: error))")
+//                        return
+//                    }
+//                    guard let data = data else {
+//                        self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//                        return
+//                    }
+//                    do
+//                    {
+//                        let json = try JSON(data: data)
+//
+//                        if !json["success"].bool! {
+//                            let msg = json["msg"].stringValue
+//                            DispatchQueue.main.async
+//                                {
+//                                    self.displayMessage(userMessage: msg)
+//                            }
+//                            return
+//                        }
+//
+//                    } catch {
+//                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                        print("error=\(String(describing: error))")
+//                    }
+//                }
+//                task.resume()
+//            } else {
+//                self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//            }
+//        }
+//    }
+//
+//    @IBAction func nextAwardButtonTapped(_ sender: Any) {
+//        DispatchQueue.main.async
+//            {
+//                self.awardPicker.selectRow(0, inComponent: 0, animated: true)
+//                self.awardPicker.isUserInteractionEnabled = true
+//                self.awardPicker.alpha = 1
+//                self.awardeePicker.selectRow(0, inComponent: 0, animated: true)
+//                self.awardeePicker.isUserInteractionEnabled = false
+//                self.awardeePicker.alpha = 0.6
+//                self.awardeePickerData = ["--- Awardee ---"]
+//                self.awardeePickerId = ["0"]
+//                self.awardeePicker.reloadAllComponents()
+//                self.showAwardButton.isEnabled = true
+//                self.showAwardeeButton.isEnabled = false
+//                self.nextAwardButton.isEnabled = false
+//        }
+//    }
     
     @IBAction func updateStatusButtonTapped(_ sender: Any) {
         getAwardeeStatus()
@@ -223,63 +224,63 @@ class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    func getAwardList() {
-        if reachability.connection != .none {
-            let keychain = KeychainSwift()
-            let accessToken = keychain.get("accessToken")
-            
-            
-            let url = URL(string: "\(v_host)/api/award/list")
-            
-            var request = URLRequest(url: url!)
-            
-            request.httpMethod = "GET"
-            request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
-            request.addValue("application/json", forHTTPHeaderField: "content-type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                if error != nil
-                {
-                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                    print("error=\(String(describing: error))")
-                    return
-                }
-                guard let data = data else {
-                    self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-                    return
-                }
-                do
-                {
-                    let json = try JSON(data: data)
-                    
-                    if json["success"].bool ?? false {
-                        let arrayNames = json["result"].arrayValue.map({$0["name"].stringValue})
-                        let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
-                        self.awardPickerData += arrayNames
-                        self.awardPickerId += arrayIds
-                        DispatchQueue.main.async {
-                            self.awardPicker.reloadAllComponents()
-                        }
-                    } else {
-                        let msg = json["msg"].stringValue
-                        DispatchQueue.main.async
-                            {
-                                self.displayMessage(userMessage: msg)
-                        }
-                        return
-                    }
-                    
-                } catch {
-                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                    print("error=\(String(describing: error))")
-                }
-            }
-            task.resume()
-        } else {
-            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
-        }
-    }
+//    func getAwardList() {
+//        if reachability.connection != .none {
+//            let keychain = KeychainSwift()
+//            let accessToken = keychain.get("accessToken")
+//
+//
+//            let url = URL(string: "\(v_host)/api/award/list")
+//
+//            var request = URLRequest(url: url!)
+//
+//            request.httpMethod = "GET"
+//            request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+//            request.addValue("application/json", forHTTPHeaderField: "content-type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+//                if error != nil
+//                {
+//                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                    print("error=\(String(describing: error))")
+//                    return
+//                }
+//                guard let data = data else {
+//                    self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//                    return
+//                }
+//                do
+//                {
+//                    let json = try JSON(data: data)
+//
+//                    if json["success"].bool ?? false {
+//                        let arrayNames = json["result"].arrayValue.map({$0["name"].stringValue})
+//                        let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
+//                        self.awardPickerData += arrayNames
+//                        self.awardPickerId += arrayIds
+//                        DispatchQueue.main.async {
+//                            self.awardPicker.reloadAllComponents()
+//                        }
+//                    } else {
+//                        let msg = json["msg"].stringValue
+//                        DispatchQueue.main.async
+//                            {
+//                                self.displayMessage(userMessage: msg)
+//                        }
+//                        return
+//                    }
+//
+//                } catch {
+//                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+//                    print("error=\(String(describing: error))")
+//                }
+//            }
+//            task.resume()
+//        } else {
+//            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+//        }
+//    }
     
     func getAwardeeStatus() {
         if reachability.connection != .none {
@@ -352,23 +353,23 @@ class AwardViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == awardPicker {
-            return awardPickerData.count
-        } else if pickerView == awardeePicker {
-            return awardeePickerData.count
-        }
-        return awardeePickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == awardPicker {
-            return awardPickerData[row]
-        } else if pickerView == awardeePicker {
-            return awardeePickerData[row]
-        }
-        return awardeePickerData[row]
-    }
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if pickerView == awardPicker {
+//            return awardPickerData.count
+//        } else if pickerView == awardeePicker {
+//            return awardeePickerData.count
+//        }
+//        return awardeePickerData.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if pickerView == awardPicker {
+//            return awardPickerData[row]
+//        } else if pickerView == awardeePicker {
+//            return awardeePickerData[row]
+//        }
+//        return awardeePickerData[row]
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return awardeeTableSection.count
