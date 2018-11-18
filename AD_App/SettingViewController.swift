@@ -16,8 +16,11 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var pagePicker: UIPickerView!
     @IBOutlet weak var soundPicker: UIPickerView!
     @IBOutlet weak var showButton: UIButton!
+    @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     
+    var pagePickerId: [String] = [String]()
     var pagePickerData: [String] = [String]()
     var soundPickerId: [String] = [String]()
     var soundPickerData: [String] = [String]()
@@ -37,7 +40,6 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         soundPicker.delegate = self
         soundPicker.dataSource = self
         
-        pagePickerData = ["--- Page ---"]
         soundPickerData = ["--- Sound Effect ---"]
         soundPickerId = ["0"]
         
@@ -45,16 +47,46 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         getSoundList()
     }
     
+    @IBAction func previousButtonTapped(_ sender: Any) {
+        let currentRow = self.pagePicker.selectedRow(inComponent: 0)
+        if currentRow > 1 {
+            self.pagePicker.selectRow(currentRow - 1, inComponent: 0, animated: true)
+            self.showButtonTapped(sender)
+        }
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        let currentRow = self.pagePicker.selectedRow(inComponent: 0)
+        if currentRow < pagePickerData.count - 1 {
+            self.pagePicker.selectRow(currentRow + 1, inComponent: 0, animated: true)
+            self.showButtonTapped(sender)
+        }
+    }
+    
+
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+    }
+    
     @IBAction func showButtonTapped(_ sender: Any) {
         let currentRow = self.pagePicker.selectedRow(inComponent: 0)
-        if currentRow > 0 {
-            let pageName = pagePickerData[currentRow]
+        if currentRow > 0 && currentRow < pagePickerId.count {
+            let pageId = pagePickerId[currentRow]
             if reachability.connection != .none {
+                let myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+                myActivityIndicator.center = view.center
+                myActivityIndicator.hidesWhenStopped = false
+                myActivityIndicator.startAnimating()
+                view.addSubview(myActivityIndicator)
+                
                 let keychain = KeychainSwift()
                 let accessToken = keychain.get("accessToken")
                 
                 
-                let url = URL(string: "\(v_host)/api/page/\(pageName)")
+                let url = URL(string: "\(v_host)/api/page/id/\(pageId)")
                 
                 var request = URLRequest(url: url!)
                 
@@ -66,29 +98,63 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                     if error != nil
                     {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
-                        print("error=\(String(describing: error))")
+                        DispatchQueue.main.async
+                            {
+                            self.showButton.isEnabled = true
+                            self.nextButton.isEnabled = true
+                            self.previousButton.isEnabled = true
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                            print("error=\(String(describing: error))")
+                        }
                         return
                     }
                     guard let data = data else {
-                        self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+                        DispatchQueue.main.async
+                            {
+                            self.showButton.isEnabled = true
+                            self.nextButton.isEnabled = true
+                            self.previousButton.isEnabled = true
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+                        }
                         return
                     }
                     do
                     {
                         let json = try JSON(data: data)
                         
-                        if !json["success"].bool! {
+                        if json["success"].bool! {
+                            DispatchQueue.main.async
+                                {
+                                self.getPageList()
+                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                                self.showButton.isEnabled = true
+                                self.nextButton.isEnabled = true
+                                self.previousButton.isEnabled = true
+                            }
+                        } else {
                             let msg = json["msg"].stringValue
                             DispatchQueue.main.async
                                 {
+                                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                                     self.displayMessage(userMessage: msg)
+                                    self.showButton.isEnabled = true
+                                    self.nextButton.isEnabled = true
+                                    self.previousButton.isEnabled = true
                             }
                             return
                         }
                         
                     } catch {
-                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                        DispatchQueue.main.async
+                            {
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            self.showButton.isEnabled = true
+                            self.nextButton.isEnabled = true
+                            self.previousButton.isEnabled = true
+                            self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                        }
                         print("error=\(String(describing: error))")
                     }
                 }
@@ -161,6 +227,8 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.pagePicker.isUserInteractionEnabled = true
             self.pagePicker.alpha = 1
             self.showButton.isEnabled = true
+            self.previousButton.isEnabled = true
+            self.nextButton.isEnabled = true
             self.soundPicker.isUserInteractionEnabled = true
             self.soundPicker.alpha = 1
             self.playButton.isEnabled = true
@@ -171,6 +239,8 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.pagePicker.isUserInteractionEnabled = false
             self.pagePicker.alpha = 0.6
             self.showButton.isEnabled = false
+            self.previousButton.isEnabled = false
+            self.nextButton.isEnabled = false
             self.soundPicker.isUserInteractionEnabled = false
             self.soundPicker.alpha = 0.6
             self.playButton.isEnabled = false
@@ -204,16 +274,13 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             let keychain = KeychainSwift()
             let accessToken = keychain.get("accessToken")
             
-            
-            let url = URL(string: "\(v_host)/api/page/list")
-            
+            let url = URL(string: "\(v_host)/api/page/currentPage")
             var request = URLRequest(url: url!)
             
             request.httpMethod = "GET"
             request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
             request.addValue("application/json", forHTTPHeaderField: "content-type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil
                 {
@@ -230,11 +297,63 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     let json = try JSON(data: data)
                     
                     if json["success"].bool ?? false {
-                        let arrayNames = json["result"].arrayValue.map({$0["name"].stringValue})
-                        self.pagePickerData += arrayNames
-                        DispatchQueue.main.async {
-                            self.pagePicker.reloadAllComponents()
+                        
+                        let currentPageId = json["result"]["value"].intValue
+         
+                        let url = URL(string: "\(v_host)/api/page/list")
+                        
+                        var request = URLRequest(url: url!)
+                        
+                        request.httpMethod = "GET"
+                        request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+                        request.addValue("application/json", forHTTPHeaderField: "content-type")
+                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                        
+                        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                            if error != nil
+                            {
+                                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                                print("error=\(String(describing: error))")
+                                return
+                            }
+                            guard let data = data else {
+                                self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
+                                return
+                            }
+                            do
+                            {
+                                let json = try JSON(data: data)
+                                
+                                if json["success"].bool ?? false {
+                                    let arrayNames = json["result"].arrayValue.map({$0["id"].intValue == currentPageId ? "(Current) " + $0["displayName"].stringValue : $0["displayName"].stringValue})
+                                    let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
+                                    DispatchQueue.main.async {
+                                        self.pagePickerData = ["--- Page ---"] + arrayNames
+                                        self.pagePickerId = ["0"] + arrayIds
+                                        self.pagePicker.reloadAllComponents()
+                                        var i = self.pagePickerId.firstIndex(where: { $0 == String(currentPageId) })
+                                        if (i ?? 0 > self.pagePickerId.count - 1 || i ?? 0 < 0) {
+                                            i = 0
+                                        }
+                                        self.pagePicker.selectRow(i ?? 0, inComponent: 0, animated: true)
+                                    }
+                                } else {
+                                    let msg = json["msg"].stringValue
+                                    DispatchQueue.main.async
+                                        {
+                                            self.displayMessage(userMessage: msg)
+                                    }
+                                    return
+                                }
+                                
+                            } catch {
+                                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                                print("error=\(String(describing: error))")
+                            }
                         }
+                        task.resume()
+                        
+                        
                     } else {
                         let msg = json["msg"].stringValue
                         DispatchQueue.main.async
@@ -328,11 +447,23 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == pagePicker {
-            return pagePickerData[row]
+            if row > pagePickerData.count - 1 {
+                return pagePickerData[pagePickerData.count - 1]
+            } else {
+                return pagePickerData[row]
+            }
         } else if pickerView == soundPicker {
-            return soundPickerData[row]
+            if row > soundPickerData.count - 1 {
+                return soundPickerData[soundPickerData.count - 1]
+            } else {
+                return soundPickerData[row]
+            }
         }
-        return pagePickerData[row]
+        if row > pagePickerData.count - 1 {
+            return pagePickerData[pagePickerData.count - 1]
+        } else {
+            return pagePickerData[row]
+        }
     }
 }
 

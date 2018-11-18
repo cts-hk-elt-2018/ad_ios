@@ -35,9 +35,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.gameQuestionPickerView.delegate = self
         self.gameQuestionPickerView.dataSource = self
         
-        gameQuestionPickerData = ["--- Question ---"]
-        gameQuestionPickerId = ["0"]
-        
         getGameQuestionList()
     }
     @IBAction func showButtonTapped(_ sender: Any) {
@@ -105,7 +102,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func nextSessionButtonTapped(_ sender: Any) {
-        self.gameQuestionPickerView.selectRow(0, inComponent: 0, animated: true)
+        getGameQuestionList()
+        let currentRow = self.gameQuestionPickerView.selectedRow(inComponent: 0)
+        self.gameQuestionPickerView.selectRow(currentRow + 1, inComponent: 0, animated: true)
         self.gameQuestionPickerView.isUserInteractionEnabled = true
         self.gameQuestionPickerView.alpha = 1
         self.showButton.isEnabled = true
@@ -256,7 +255,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     let json = try JSON(data: data)
                     
                     if json["success"].bool ?? false {
-                        let arrayNames = json["result"].arrayValue.map({$0["question"].stringValue})
+                        
+                        self.gameQuestionPickerData = ["--- Question ---"]
+                        self.gameQuestionPickerId = ["0"]
+                        let arrayNames = json["result"].arrayValue.map({$0["played"].boolValue ? "(Played) " + $0["displayQuestion"].stringValue : $0["displayQuestion"].stringValue})
                         let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
                         self.gameQuestionPickerData += arrayNames
                         self.gameQuestionPickerId += arrayIds

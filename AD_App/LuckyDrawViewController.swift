@@ -26,6 +26,7 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     var giftPickerData: [String] = [String]()
     var giftPickerId: [String] = [String]()
+    var giftPickerWinnerNum: [Int] = [Int]()
     var numberPickerData: [String] = [String]()
     var winnerTableData: [String] = [String]()
     var winnerTableId: [String] = [String]()
@@ -51,8 +52,6 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         self.winnerTableView.allowsMultipleSelection = true
         
-        giftPickerData = ["--- Gift ---"]
-        giftPickerId = ["0"]
         numberPickerData = ["--- No. of Prize Winner(s) ---", "1 - One", "2 - Two", "3 - Three", "4 - Four", "5 - Five", "6 - Six", "7 - Seven", "8 - Eight", "9 - Nine", "10 - Ten"]
         getGiftList()
     }
@@ -142,10 +141,15 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                     let json = try JSON(data: data)
 
                     if json["success"].bool ?? false {
-                        let arrayNames = json["result"].arrayValue.map({$0["name"].stringValue})
+                        self.giftPickerData = ["--- Gift ---"]
+                        self.giftPickerId = ["0"]
+                        self.giftPickerWinnerNum = [0]
+                        let arrayNames = json["result"].arrayValue.map({$0["drawed"].boolValue ? "(Drawed) " + $0["displayName"].stringValue : $0["displayName"].stringValue})
                         let arrayIds = json["result"].arrayValue.map({$0["id"].stringValue})
+                        let arrayWinnerNum = json["result"].arrayValue.map({$0["winnerLen"].intValue})
                         self.giftPickerData += arrayNames
                         self.giftPickerId += arrayIds
+                        self.giftPickerWinnerNum += arrayWinnerNum
                         DispatchQueue.main.async {
                             self.giftPicker.reloadAllComponents()
                         }
@@ -238,6 +242,7 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                                 self.giftPicker.isUserInteractionEnabled = false
                                 self.giftPicker.alpha = 0.6
                                 self.showButton.isEnabled = false
+                                self.numberPicker.selectRow(self.giftPickerWinnerNum[currentRow], inComponent: 0, animated: true)
                                 self.numberPicker.isUserInteractionEnabled = true
                                 self.numberPicker.alpha = 1
                                 self.drawButton.isEnabled = true
@@ -362,7 +367,8 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBAction func resetButtonTapped(_ sender: Any) {
         DispatchQueue.main.async
         {
-            self.giftPicker.selectRow(0, inComponent: 0, animated: true)
+            self.getGiftList()
+//            self.giftPicker.selectRow(0, inComponent: 0, animated: true)
             self.giftPicker.isUserInteractionEnabled = true
             self.giftPicker.alpha = 1
             self.numberPicker.isUserInteractionEnabled = false
@@ -486,7 +492,9 @@ class LuckyDrawViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 self.winnerTableId = []
                 self.winnerTableView.reloadData()
                 self.winnerTableView.isUserInteractionEnabled = false
-                self.giftPicker.selectRow(0, inComponent: 0, animated: true)
+                self.getGiftList()
+                let currentRow = self.giftPicker.selectedRow(inComponent: 0)
+                self.giftPicker.selectRow(currentRow + 1, inComponent: 0, animated: true)
                 self.giftPicker.isUserInteractionEnabled = true
                 self.giftPicker.alpha = 1
                 self.numberPicker.selectRow(0, inComponent: 0, animated: true)

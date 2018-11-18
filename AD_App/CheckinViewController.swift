@@ -255,6 +255,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil
                 {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
@@ -266,6 +267,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     return
                 }
                 guard let data = data else {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
                     return
                 }
@@ -323,6 +325,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                         self.staffIDTextField.text = ""
                     }
                 } catch {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
@@ -367,6 +370,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil
                 {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
@@ -378,6 +382,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     return
                 }
                 guard let data = data else {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
                     return
                 }
@@ -439,6 +444,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                         self.staffIDTextField.text = ""
                     }
                 } catch {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
@@ -518,6 +524,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil
                 {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
                     print("error=\(String(describing: error))")
                     self.staffIDLabel.text = ""
@@ -529,6 +536,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                     return
                 }
                 guard let data = data else {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.displayMessage(userMessage: "There is something wrong with your internet Connection. Please check and try again")
                     return
                 }
@@ -572,6 +580,7 @@ class CheckinViewController: UIViewController, UITextFieldDelegate, AVCaptureMet
                         self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
                     }
                 } catch {
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.staffIDLabel.text = ""
                     self.staffNameLabel.text = ""
                     self.checkedInSwitch.setOn(false, animated: false)
